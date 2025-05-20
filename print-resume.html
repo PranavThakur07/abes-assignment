@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Resume Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        form,
+        .resume {
+            max-width: 600px;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .resume {
+            display: none;
+        }
+
+        @media print {
+
+            form,
+            button {
+                display: none;
+            }
+
+            .resume {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Resume Generator</h2>
+
+    <form id="resumeForm">
+        <label>Full Name:</label>
+        <input type="text" id="name" required>
+
+        <label>Email:</label>
+        <input type="email" id="email" required>
+
+        <label>Phone:</label>
+        <input type="tel" id="phone" required>
+
+        <label>Address:</label>
+        <input type="text" id="address">
+
+        <label>Education:</label>
+        <textarea id="education" rows="3"></textarea>
+
+        <label>Skills:</label>
+        <textarea id="skills" rows="3"></textarea>
+
+        <label>Experience:</label>
+        <textarea id="experience" rows="3"></textarea>
+
+        <button type="submit">Generate Resume</button>
+    </form>
+
+    <div class="resume" id="resumeOutput">
+        <h2>Resume</h2>
+        <p><strong>Name:</strong> <span id="outName"></span></p>
+        <p><strong>Email:</strong> <span id="outEmail"></span></p>
+        <p><strong>Phone:</strong> <span id="outPhone"></span></p>
+        <p><strong>Address:</strong> <span id="outAddress"></span></p>
+        <p><strong>Education:</strong> <span id="outEducation"></span></p>
+        <p><strong>Skills:</strong> <span id="outSkills"></span></p>
+        <p><strong>Experience:</strong> <span id="outExperience"></span></p>
+
+        <button onclick="window.print()">Print Resume</button>
+    </div>
+
+    <script>
+        document.getElementById("resumeForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            document.getElementById("outName").textContent = document.getElementById("name").value;
+            document.getElementById("outEmail").textContent = document.getElementById("email").value;
+            document.getElementById("outPhone").textContent = document.getElementById("phone").value;
+            document.getElementById("outAddress").textContent = document.getElementById("address").value;
+            document.getElementById("outEducation").textContent = document.getElementById("education").value;
+            document.getElementById("outSkills").textContent = document.getElementById("skills").value;
+            document.getElementById("outExperience").textContent = document.getElementById("experience").value;
+
+            document.getElementById("resumeOutput").style.display = "block";
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+
+</html>

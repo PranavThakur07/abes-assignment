@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Marksheet Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f2f2f2;
+        }
+
+        form,
+        .marksheet {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .marksheet {
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            border: 1px solid #666;
+            padding: 10px;
+            text-align: center;
+        }
+
+        @media print {
+
+            form,
+            button {
+                display: none;
+            }
+
+            .marksheet {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Marksheet Generator</h2>
+
+    <form id="marksForm">
+        <label>Student Name:</label>
+        <input type="text" id="studentName" required>
+
+        <label>Roll Number:</label>
+        <input type="text" id="rollNumber" required>
+
+        <label>Subject 1 (Math):</label>
+        <input type="number" id="math" required>
+
+        <label>Subject 2 (Science):</label>
+        <input type="number" id="science" required>
+
+        <label>Subject 3 (English):</label>
+        <input type="number" id="english" required>
+
+        <label>Subject 4 (Computer):</label>
+        <input type="number" id="computer" required>
+
+        <label>Subject 5 (Social Studies):</label>
+        <input type="number" id="sst" required>
+
+        <button type="submit">Generate Marksheet</button>
+    </form>
+
+    <div class="marksheet" id="marksheet">
+        <h2>Student Marksheet</h2>
+        <p><strong>Name:</strong> <span id="mName"></span></p>
+        <p><strong>Roll Number:</strong> <span id="mRoll"></span></p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Marks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Math</td>
+                    <td id="mMath"></td>
+                </tr>
+                <tr>
+                    <td>Science</td>
+                    <td id="mScience"></td>
+                </tr>
+                <tr>
+                    <td>English</td>
+                    <td id="mEnglish"></td>
+                </tr>
+                <tr>
+                    <td>Computer</td>
+                    <td id="mComputer"></td>
+                </tr>
+                <tr>
+                    <td>Social Studies</td>
+                    <td id="mSST"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total</th>
+                    <th id="mTotal"></th>
+                </tr>
+                <tr>
+                    <th>Percentage</th>
+                    <th id="mPercent"></th>
+                </tr>
+                <tr>
+                    <th>Result</th>
+                    <th id="mResult"></th>
+                </tr>
+            </tfoot>
+        </table>
+
+        <br>
+        <button onclick="window.print()">Print Marksheet</button>
+    </div>
+
+    <script>
+        document.getElementById("marksForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById("studentName").value;
+            const roll = document.getElementById("rollNumber").value;
+            const math = parseInt(document.getElementById("math").value);
+            const science = parseInt(document.getElementById("science").value);
+            const english = parseInt(document.getElementById("english").value);
+            const computer = parseInt(document.getElementById("computer").value);
+            const sst = parseInt(document.getElementById("sst").value);
+
+            const total = math + science + english + computer + sst;
+            const percent = (total / 5).toFixed(2);
+            const result = (math >= 33 && science >= 33 && english >= 33 && computer >= 33 && sst >= 33) ? "Pass" : "Fail";
+
+            document.getElementById("mName").textContent = name;
+            document.getElementById("mRoll").textContent = roll;
+            document.getElementById("mMath").textContent = math;
+            document.getElementById("mScience").textContent = science;
+            document.getElementById("mEnglish").textContent = english;
+            document.getElementById("mComputer").textContent = computer;
+            document.getElementById("mSST").textContent = sst;
+            document.getElementById("mTotal").textContent = total;
+            document.getElementById("mPercent").textContent = percent + "%";
+            document.getElementById("mResult").textContent = result;
+
+            document.getElementById("marksheet").style.display = "block";
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+
+</html>
